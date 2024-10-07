@@ -1,7 +1,6 @@
 import { validationResult } from "express-validator";
 import Employe from "../models/Employe.js";
 
-// Get all employees
 export const getAllEmployes = async (req, res) => {
   try {
     const employes = await Employe.findAll();
@@ -11,7 +10,6 @@ export const getAllEmployes = async (req, res) => {
   }
 };
 
-// Get an employee by ID
 export const getEmployeById = async (req, res) => {
   try {
     const employe = await Employe.findByPk(req.params.id);
@@ -25,7 +23,6 @@ export const getEmployeById = async (req, res) => {
   }
 };
 
-// Create a new employee
 export const createEmploye = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -40,7 +37,6 @@ export const createEmploye = async (req, res) => {
   }
 };
 
-// Update an employee by ID
 export const updateEmploye = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -66,7 +62,6 @@ export const updateEmploye = async (req, res) => {
   }
 };
 
-// Delete an employee by ID
 export const deleteEmploye = async (req, res) => {
   try {
     const employe = await Employe.findByPk(req.params.id);

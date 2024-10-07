@@ -2,7 +2,6 @@ import { validationResult } from "express-validator";
 import Task from "../models/Task.js";
 import Employe from "../models/Employe.js";
 
-// Get all tasks
 export const getAllTasks = async (req, res) => {
   try {
     const tasks = await Task.findAll({ include: [Employe] });
@@ -12,7 +11,6 @@ export const getAllTasks = async (req, res) => {
   }
 };
 
-// Get a task by ID
 export const getTaskById = async (req, res) => {
   try {
     const task = await Task.findByPk(req.params.id, { include: [Employe] });
@@ -26,7 +24,6 @@ export const getTaskById = async (req, res) => {
   }
 };
 
-// Create a new task
 export const createTask = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -35,13 +32,11 @@ export const createTask = async (req, res) => {
   try {
     const { name, description, status, due_date, employeId } = req.body;
 
-    // Vérifier si l'employé existe
     const employe = await Employe.findByPk(employeId);
     if (!employe) {
       return res.status(404).json({ error: "Employe not found" });
     }
 
-    // Créer la tâche
     const task = await Task.create({ name, description, status, due_date, employeId });
     res.status(201).json(task);
   } catch (error) {
@@ -49,7 +44,6 @@ export const createTask = async (req, res) => {
   }
 };
 
-// Update a task by ID
 export const updateTask = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -60,7 +54,6 @@ export const updateTask = async (req, res) => {
     const task = await Task.findByPk(req.params.id);
 
     if (task) {
-      // Vérifier si l'employé existe, si un employeId est fourni
       if (employeId) {
         const employe = await Employe.findByPk(employeId);
         if (!employe) {
@@ -84,7 +77,6 @@ export const updateTask = async (req, res) => {
   }
 };
 
-// Delete a task by ID
 export const deleteTask = async (req, res) => {
   try {
     const task = await Task.findByPk(req.params.id);

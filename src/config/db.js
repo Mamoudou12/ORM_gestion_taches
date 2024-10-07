@@ -10,7 +10,3 @@ sequelize.authenticate().then(() => {
 });
 
 export default sequelize
-// const employe = sequelize.define(
-//     "employes, {id: {type: DataTypes.INT}}",
-//     "empoyes, {title: {} } " 
-// )
